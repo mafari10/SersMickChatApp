@@ -12,15 +12,18 @@
         <input type="password" id="password" v-model="password" required>
 
         <button type="submit">Register</button>
-        
+      
         </form>
   </div>
 </template>
 
 <script>
     import { ref } from 'vue';
+    import useSignUp from '@/composables/useSignup';
     export default {
         setup() {
+            // Importing the useSignUp composable
+            const {error,signUp} = useSignUp();
             const name = ref('');
             const email = ref('');
             const password = ref('');

@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
-import 'firebase/firestore'
+import 'firebase/firestore';
+import 'firebase/auth';
 
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -15,7 +16,10 @@ const firebaseConfig = {
 
   // firebase initialization
 firebase.initializeApp(firebaseConfig);
+
+// firebase authentication
+const projectAuth = firebase.auth();
 const projectFirestore = firebase.firestore();
 const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
-export { projectFirestore, timestamp };
+export { projectFirestore, timestamp,projectAuth };
