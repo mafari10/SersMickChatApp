@@ -1,21 +1,22 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Welcome from '@/views/Welcome.vue'
-import LoginForm from '@/components/loginForm.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import Welcome from "@/views/Welcome.vue";
+import Chatroom from "@/views/Chatroom.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'Welcome',
+      path: "/",
+      name: "Welcome",
       component: Welcome,
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: LoginForm,
+      path: "/chatroom",
+      name: "Chatroom",
+      component: Chatroom,
+      props: true,
     },
   ],
-})
+});
 
-export default router
+export default router;
