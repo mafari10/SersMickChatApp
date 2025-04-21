@@ -1,8 +1,9 @@
 <template>
-  <nav class="chatroom-navbar">
+  <nav class="chatroom-navbar" v-if="user">
     <ul>
-      <li class="greetings">Hey there... displayname here</li>
-      <li class="email">Currently logged in as ... email</li>
+      <li class="greetings">Hey there... {{ user.displayName }}</li>
+
+      <li class="email">Currently logged in with {{ user.email }}</li>
     </ul>
     <button @click="handleLogout">Logout</button>
   </nav>
@@ -10,17 +11,20 @@
 
 <script>
 import userLogout from "@/composables/uselogout";
+import getUser from "@/composables/getUser";
 
 export default {
   setup() {
+    const { user } = getUser();
     const { logout, error } = userLogout();
+
     const handleLogout = async () => {
       await logout();
       if (!error.value) {
         console.log("user logged out successfully");
       }
     };
-    return { handleLogout, error };
+    return { handleLogout, error, user };
   },
 };
 </script>
