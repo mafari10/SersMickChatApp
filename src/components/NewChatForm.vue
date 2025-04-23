@@ -7,12 +7,14 @@
       required
       @keypress.enter.prevent="handleSubmit"
     />
-    <button type="submit">Send</button>
+    <button type="submit" @click="handleSubmit">Send</button>
+    <div class="error">{{ error }}</div>
   </form>
 </template>
 
   <script>
 import getUser from "@/composables/getUser";
+import useCollection from "@/composables/useCollection";
 import { timestamp } from "@/firebase/config";
 import { ref } from "vue";
 export default {
@@ -20,6 +22,7 @@ export default {
     // Get user from the store
     const { user } = getUser();
     const message = ref("");
+    const { error, addDoc } = useCollection("messages");
 
     const handleSubmit = async () => {
       const chat = {
@@ -27,12 +30,16 @@ export default {
         message: message.value,
         sent: timestamp(),
       };
-      console.log(chat);
-      // Reset the message input field
+      // Add the chat message to the Firestore collection
+      await addDoc(chat);
+      if (!error.value) {
+        // Reset the message input field
       message.value = "";
+      }
+      
     };
 
-    return { message, handleSubmit };
+    return { message, handleSubmit,error };
   },
 };
 </script>
